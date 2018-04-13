@@ -18,6 +18,8 @@
   },
   "homepage": "https://github.com/pmactavish13/word-guess-node#readme",
   "dependencies": {
-    "inquirer": "^5.2.0"
+    "inquirer": "^5.2.0",
+    "is-letter": "^1.1.1",
+    "random-words": "^1.0.0"
   }
 }
