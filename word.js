@@ -1,16 +1,18 @@
-var letter = require("./letter.js")
+var Letter = require("./letter.js")
 
 function Word(randomWord) {
     this.randomWord = randomWord
     console.log(this.randomWord + " Word")
     this.splitRandomWord = randomWord.split("")
     console.log(this.splitRandomWord)
-    this.wordPlaceHolder = function (underscore) {
+   
+    this.wordPlaceHolder = function () {
         for (var i = 0; i < this.splitRandomWord.length; i++) {
-            letter = new Letter(this.splitRandomWord[i]);
-            console.log(wordPlaceHolder)
+            var letter = new Letter(this.splitRandomWord[i]);
+            console.log(letter)
+           // var underscore = letter.showRightLetter
+            //console.log(underscore + "underscore")
         };
-        console.log(this.wordPlaceHolder)
     };
 
     this.guess = function (letterGuessed) {
@@ -20,10 +22,10 @@ function Word(randomWord) {
         console.log(this.guess)
     };
 
-    this.returnRandomWordToString = function () {
-        stringRandomWord = "";
+    this.toString = function () {
+        toString = "";
         for (var i = 0; i < this.splitRandomWord.length; i++) {
-            stringRandomWord += this.splitRandomWord[i].showRightLetter();
+            toString += this.splitRandomWord[i].showRightLetter();
         };
         console.log(stringRandomWord);
     };

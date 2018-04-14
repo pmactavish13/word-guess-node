@@ -2,7 +2,7 @@ function Letter(letterInWord) {
     this.letter = letterInWord;
     this.guessedRightLetter = false;
 
-    this.showRightLetter = function () {
+    this.showRightLetter = function (letterInWord) {
         if (this.guessedRightLetter === true) {
             return this.letter;
         } else {

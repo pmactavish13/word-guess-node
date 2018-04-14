@@ -27,23 +27,30 @@ inquirer.prompt([
 });
 
 function pickWord() {
-    randomWord = new RandomWord();
-    randomWord = this.randomWord.randomWord
-    wordLength();
+    var randomWord = new RandomWord();
+    randomWord = randomWord.randomWord;
+    wordLength(randomWord);
 }
 
-function wordLength() {
-    if (randomWord.length < 7) {
+function wordLength(newRandomWord) {
+    if (newRandomWord.length < 7) {
         pickWord();
-    } else if (randomWord.length >= 7) {
-        populateScreen();
+    } else if (newRandomWord.length >= 7) {
+        populateScreen(newRandomWord);
     }    
 }
 
-function populateScreen() {
-    console.log(randomWord + " pop")
-    word = new Word(randomWord);
-    console.log(wordPlaceHolder)
+function populateScreen(wordToGuess) {
+    word = new Word(wordToGuess);
+    // console.log(word)
+    // console.log(word.randomWord)
+    // console.log(word.splitRandomWord + " index")
+    // console.log(word.wordPlaceHolder + " index")
+    // console.log(word.guess + " index")
+    // console.log(word.toString + " index")
+    
+    //word.wordPlaceHolder();
+    //word.returnRandomWordToString();
     
 
 
