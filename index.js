@@ -1,6 +1,6 @@
 var Word = require("./word.js");
 var inquirer = require("inquirer");
-var randomWord = require('random-words');
+var RandomWord = require("./randomWord.js")
 var isLetter = require('is-letter');
 
 inquirer.prompt([
@@ -19,17 +19,36 @@ inquirer.prompt([
     }
 ]).then(function (answer) {
     if (answer.playWordGuess === true) {
-        this.guessesRemaining = 7;
-        this.guessedLetters = [];
-        console.log("Good Luck!")
-        startGame()
+        console.log("Good Luck!");
+        pickWord()
     } else {
         console.log("Maybe another time.")
     }
 });
 
-function startGame() {
-    console.log(randomWord());
-};
+function pickWord() {
+    randomWord = new RandomWord();
+    randomWord = this.randomWord.randomWord
+    wordLength();
+}
 
+function wordLength() {
+    if (randomWord.length < 7) {
+        pickWord();
+    } else if (randomWord.length >= 7) {
+        populateScreen();
+    }    
+}
+
+function populateScreen() {
+    console.log(randomWord + " pop")
+    word = new Word(randomWord);
+    console.log(wordPlaceHolder)
+    
+
+
+}
+
+// this.guessesRemaining = 7;
+// this.guessedLetters = [];
 

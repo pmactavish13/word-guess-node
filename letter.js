@@ -1,6 +1,3 @@
-// goes through each letter in the word to see if guess matches letter
-// no then _ logged
-//yes then letter logged
 function Letter(letterInWord) {
     this.letter = letterInWord;
     this.guessedRightLetter = false;
