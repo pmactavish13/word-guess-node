@@ -49,7 +49,7 @@ function populateScreen(wordToGuess) {
     // console.log(word.guess + " index")
     // console.log(word.toString + " index")
     
-    //word.wordPlaceHolder();
+    word.wordPlaceHolder();
     //word.returnRandomWordToString();
     
 
