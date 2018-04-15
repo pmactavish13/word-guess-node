@@ -2,7 +2,9 @@ var Word = require("./word.js");
 var inquirer = require("inquirer");
 var RandomWord = require("./randomWord.js")
 var isLetter = require('is-letter');
+var guessesCounter = 8
 
+//*********************** START SCREEN ***********************
 inquirer.prompt([
     {
         name: "playWordGuess",
@@ -19,43 +21,69 @@ inquirer.prompt([
     }
 ]).then(function (answer) {
     if (answer.playWordGuess === true) {
-        console.log("Good Luck!");
+        console.log("\nGOOD LUCK!\n");
         pickWord()
     } else {
         console.log("Maybe another time.")
     }
 });
 
+//*********************** PLAY GAME ***********************
+
+// NPM random-words.js randomly chooses a word
 function pickWord() {
     var randomWord = new RandomWord();
     randomWord = randomWord.randomWord;
     wordLength(randomWord);
 }
 
+// Check length of randomly chosen word
 function wordLength(newRandomWord) {
     if (newRandomWord.length < 7) {
         pickWord();
     } else if (newRandomWord.length >= 7) {
         populateScreen(newRandomWord);
-    }    
+    }
 }
 
+// If randomly chosen word length > 7 setup initial screen
 function populateScreen(wordToGuess) {
     word = new Word(wordToGuess);
+    word.wordPlaceHolder();
+    guessLetter(wordToGuess);
+}
+
+function guessLetter(guessWord) {
+    guessesCounter--
+    if (guessesCounter > 0) {
+        inquirer.prompt([
+            {
+                name: "yourGuess",
+                type: "input",
+                message: "\nYou have " + guessesCounter + " guesses remaining.  Enter a Letter.\n",
+                validate: function (value) {
+                    if (isLetter(value)) {
+                        return true;
+                    } else {
+                        return "Please enter a letter."
+                    }
+                }
+            }
+        ]).then(function (answer) {
+            var letterGuessed = answer.yourGuess;
+            word = new Word(guessWord,letterGuessed )
+            word.guess()
+            //word.wordPlaceHolder();
+
+        });
+    }
+}
+// this.guessesRemaining = 7;
+// this.guessedLetters = [];
+
     // console.log(word)
     // console.log(word.randomWord)
     // console.log(word.splitRandomWord + " index")
     // console.log(word.wordPlaceHolder + " index")
     // console.log(word.guess + " index")
     // console.log(word.toString + " index")
-    
-    word.wordPlaceHolder();
-    //word.returnRandomWordToString();
-    
-
-
-}
-
-// this.guessesRemaining = 7;
-// this.guessedLetters = [];
-
