@@ -27,7 +27,7 @@ inquirer.prompt([
         console.log("\nGOOD LUCK!\n");
         pickWord();
     } else {
-        console.log("Maybe another time.");
+        console.log("\nMaybe another time.\n");
     };
 });
 
@@ -73,7 +73,7 @@ function guessLetter(guessWord) {
                     if (isLetter(value)) {
                         return true;
                     } else {
-                        return "Please enter a letter.";
+                        return "\nPlease enter a letter.\n";
                     }
                 }
             }
@@ -81,7 +81,7 @@ function guessLetter(guessWord) {
             var letterGuessed = answer.yourGuess.toUpperCase();
             // check to see if letter already guessed
             if (guessesArray.indexOf(letterGuessed) >= 0) {
-                console.log("You already guessed that letter.  Try Again.\n");
+                console.log("\nYou already guessed that letter.  Try Again.\n");
                 targetWord.wordPlaceHolder();
                 guessLetter();
             } else {
@@ -89,19 +89,19 @@ function guessLetter(guessWord) {
                 // check if guess in word
                 if (targetWord.splitRandomWord.indexOf(letterGuessed) === -1) {
                     guessesCounter--;
-                    console.log("Incorrect Guess\n");
+                    console.log("\nIncorrect Guess\n");
                     if (guessesCounter > 0) {
                         targetWord.wordPlaceHolder();
                         guessLetter();
                     } else {
-                        console.log("GAME OVER!!\n\nThe correct answer was " + targetWord.randomWord + ".\n");
+                        console.log("\nGAME OVER!!\n\nThe correct answer was " + targetWord.randomWord + ".\n");
                         playAgain();
                     }
                 } else {
                     targetWord.guess(letterGuessed);
                     targetWord.wordPlaceHolder();
                     if (targetWord.guessState.indexOf("_") === -1) {
-                        console.log("You Win!");
+                        console.log("YOU WON!\n");
                         playAgain();
                     } else {
                         guessLetter();
@@ -126,7 +126,7 @@ function playAgain() {
             console.log("\nGOOD LUCK!\n");
             pickWord();
         } else {
-            console.log("\nMaybe another time.");
+            console.log("\nMaybe another time.\n");
         };
     });
 };
