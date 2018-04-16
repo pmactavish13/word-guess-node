@@ -1,7 +1,6 @@
-var Letter = require("./letter.js")
+var Letter = require("./letter.js");
 
 var Word = function (randomWord) {
-    // var randomWord = "HOW"
     this.randomWord = randomWord.toUpperCase();
     this.splitRandomWord = this.randomWord.split("");
     this.letterArray = [];
@@ -25,20 +24,9 @@ var Word = function (randomWord) {
         this.guess = function (letterGuessed) {
             for (var i = 0; i < this.letterArray.length; i++) {
                 this.letterArray[i].checkLetter(letterGuessed);
-            }
+            };
         };
-    }
-    // wordPlaceHolder()
-    // var letterH = "H"
-    // guess(letterH)
-    // wordPlaceHolder()
-    // var letterO = "O"
-    // guess(letterO)
-    // wordPlaceHolder()
-    // var letterW = "W"
-    // guess(letterW)
-    // wordPlaceHolder()
+    };
 };
 
-module.exports = Word
-// Word()
+module.exports = Word;

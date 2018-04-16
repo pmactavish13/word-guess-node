@@ -12,8 +12,8 @@ var Letter = function(letter) {
     };
     this.checkLetter = function (letterGuessed) {
         if (letterGuessed.toUpperCase() === this.letter.toUpperCase()) {
-            this.beenGuessed = true
-        } 
+            this.beenGuessed = true;
+        }; 
     };
 };
 
