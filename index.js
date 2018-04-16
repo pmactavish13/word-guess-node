@@ -2,7 +2,13 @@ var Word = require("./word.js");
 var inquirer = require("inquirer");
 var RandomWord = require("./randomWord.js")
 var isLetter = require('is-letter');
+
 var guessesCounter = 8
+var guessesArray = []
+var alphabet = genCharArray('a', 'z');
+var TargetWord = "";
+
+
 
 //*********************** START SCREEN ***********************
 inquirer.prompt([
@@ -28,8 +34,18 @@ inquirer.prompt([
     }
 });
 
+//populates letter array
+function genCharArray(charA, charZ) {
+    var a = [], i = charA.charCodeAt(0), j = charZ.charCodeAt(0);
+    for (; i <= j; ++i) {
+        a.push(String.fromCharCode(i));
+    }
+    return a;
+}
+
 //*********************** PLAY GAME ***********************
 
+//*************** GENERATE WORD AND SET UP SCREEN***************
 // NPM random-words.js randomly chooses a word
 function pickWord() {
     var randomWord = new RandomWord();
@@ -48,13 +64,17 @@ function wordLength(newRandomWord) {
 
 // If randomly chosen word length > 7 setup initial screen
 function populateScreen(wordToGuess) {
-    word = new Word(wordToGuess);
-    word.wordPlaceHolder();
+    guessesArray = []
+    TargetWord = new Word(wordToGuess);
+    TargetWord.wordPlaceHolder();
     guessLetter(wordToGuess);
+    //guessLetter(wordToGuess);
 }
 
+//**************** ACTIVE PLAY -PICK LETTRS *****************
+
+// Guess a letter
 function guessLetter(guessWord) {
-    guessesCounter--
     if (guessesCounter > 0) {
         inquirer.prompt([
             {
@@ -70,20 +90,36 @@ function guessLetter(guessWord) {
                 }
             }
         ]).then(function (answer) {
-            var letterGuessed = answer.yourGuess;
-            word = new Word(guessWord,letterGuessed )
-            word.guess()
-            //word.wordPlaceHolder();
+            var letterGuessed = answer.yourGuess.toUpperCase;
+            // check to see if letter already guessed
+            if (guessesArray.indexOf(letterGuessed) !== -1) {
+                console.log("You already guessed that letter.  Try Again.")
+                TargetWord.wordPlaceHolder();
+                guessLetter();
+            } else {
+                guesserArray.push(letterGuessed)
+                if (TargetWord.splitRandomWord.indexOf(letterGuessed) === -1) {
+                    guessesCounter--;
+                    console.log("Incorrect Guess\n");
+                    if (guessesCounter > 0) {
+                        TargetWord.wordPlaceHolder();
+                        guessLetter();
+                    } else {
+                        console.log("GAME OVER!!\n\nThe correct answer was " + guessWord + ".\n");
+                        pickWord()
+                    }
+                } else {
+                    TargetWord.guess(letterGuessed);
+                    TargetWord.wordPlaceHolder();
+                    if (TargetWord.guessState.indexOf("_") === -1) {
+                        console.log("You Win!")
+                        pickWord();
+                    } else {
+                        guessLetter()
+                    }
+                }
+            }
 
         });
     }
-}
-// this.guessesRemaining = 7;
-// this.guessedLetters = [];
-
-    // console.log(word)
-    // console.log(word.randomWord)
-    // console.log(word.splitRandomWord + " index")
-    // console.log(word.wordPlaceHolder + " index")
-    // console.log(word.guess + " index")
-    // console.log(word.toString + " index")
+}    
