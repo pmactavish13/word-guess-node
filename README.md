@@ -1,4 +1,7 @@
 # word-guess-node
+
+Live play on YouTube:  https://youtu.be/vUNnvZHvkrk
+
 Word Guess command-line game using constructor functions, npm.js inquirer, npm.js random-words and npm.js .is-letter
 
 A word is randomly selected using npm.js random-words.
