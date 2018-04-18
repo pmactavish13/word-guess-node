@@ -2,6 +2,7 @@ var Word = require("./word.js");
 var inquirer = require("inquirer");
 var RandomWord = require("./randomWord.js");
 var isLetter = require('is-letter');
+var colors = require('colors');
 
 var guessesCounter = 7;
 var guessesArray = [];
@@ -12,22 +13,22 @@ inquirer.prompt([
     {
         name: "playWordGuess",
         type: "confirm",
-        message: "\n************************** Welcome to Word Guess **************************\n" +
-            "\nA word is randomly selected using npm.js random-words." +
+        message: colors.rainbow("\n******************************** ") + colors.blue("Welcome to Word Guess ") + colors.rainbow("********************************\n") +
+            colors.blue("\nA word is randomly selected using npm.js random-words." +
             "\nUnderscores will be shown on your sreen so you can see how many letters are in the word." +
             "\nEnter a letter at the prompt." +
             "\nIf the letter you guessed is in the word, it will replace the underscore." +
-            "\nIf you get all the letters in the word before you guess 7 incorrect letters, you WIN!" +
-            "\n\n***************************************************************************" +
-            "\n\nWould you like to play?",
+            "\nIf you get all the letters in the word before you guess 7 incorrect letters, you WIN!") +
+            colors.rainbow("\n\n***************************************************************************************") +
+            colors.magenta("\n\nWould you like to play?"),
         default: true
     }
 ]).then(function (answer) {
     if (answer.playWordGuess === true) {
-        console.log("\nGOOD LUCK!\n");
+        console.log(colors.green("\nGOOD LUCK!\n"));
         pickWord();
     } else {
-        console.log("\nMaybe another time.\n");
+        console.log(colors.magenta("\nMaybe another time.\n"));
     };
 });
 
@@ -68,12 +69,12 @@ function guessLetter(guessWord) {
             {
                 name: "yourGuess",
                 type: "input",
-                message: "\nYou have " + guessesCounter + " guesses remaining.  Enter a Letter.\n",
+                message: colors.cyan("\nYou have " ) + colors.green(guessesCounter) + colors.cyan(" guesses remaining.  Enter a Letter.\n"),
                 validate: function (value) {
                     if (isLetter(value)) {
                         return true;
                     } else {
-                        return "\nPlease enter a letter.\n";
+                        return colors.red("\nPlease enter a letter.\n");
                     }
                 }
             }
@@ -81,7 +82,7 @@ function guessLetter(guessWord) {
             var letterGuessed = answer.yourGuess.toUpperCase();
             // check to see if letter already guessed
             if (guessesArray.indexOf(letterGuessed) >= 0) {
-                console.log("\nYou already guessed that letter.  Try Again.\n");
+                console.log(colors.red("\nYou already guessed that letter.  Try Again.\n"));
                 targetWord.wordPlaceHolder();
                 guessLetter();
             } else {
@@ -89,19 +90,19 @@ function guessLetter(guessWord) {
                 // check if guess in word
                 if (targetWord.splitRandomWord.indexOf(letterGuessed) === -1) {
                     guessesCounter--;
-                    console.log("\nIncorrect Guess\n");
+                    console.log(colors.red("\nIncorrect Guess\n"));
                     if (guessesCounter > 0) {
                         targetWord.wordPlaceHolder();
                         guessLetter();
                     } else {
-                        console.log("\nGAME OVER!!\n\nThe correct answer was " + targetWord.randomWord + ".\n");
+                        console.log(colors.red("\nGAME OVER!!\n\nThe correct answer was " + targetWord.randomWord + ".\n"));
                         playAgain();
                     }
                 } else {
                     targetWord.guess(letterGuessed);
                     targetWord.wordPlaceHolder();
                     if (targetWord.guessState.indexOf("_") === -1) {
-                        console.log("YOU WON!\n");
+                        console.log(colors.green("YOU WON!\n"));
                         playAgain();
                     } else {
                         guessLetter();
@@ -118,15 +119,15 @@ function playAgain() {
         {
             name: "again",
             type: "confirm",
-            message: "\nWould you like to play again?",
+            message: colors.magenta("\nWould you like to play again?"),
             default: true
         }
     ]).then(function (answer) {
         if (answer.again === true) {
-            console.log("\nGOOD LUCK!\n");
+            console.log(colors.green("\nGOOD LUCK!\n"));
             pickWord();
         } else {
-            console.log("\nMaybe another time.\n");
+            console.log(colors.magenta("\nMaybe another time.\n"));
         };
     });
 };
